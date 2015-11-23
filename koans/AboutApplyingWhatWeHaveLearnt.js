@@ -72,18 +72,16 @@ describe("About Applying What We Have Learnt", function() {
 
   it("should add all the natural numbers below 1000 that are multiples of 3 or 5 (functional)", function () {
 
-    var numbers = _.range(1, 1000);
-    console.log(numbers);
-    
-    var sum = numbers
+    var sum = _(_.range(1, 1000)).chain()
               .reduce(function(total, i){
-                if (i % 3 === 0 || i % 5 === 0){
-                  return total + i;
+                if (i % 3 === 0 || i % 5 === 0){ 
+                  return total + i; 
+                } else { 
+                  return total; 
                 }
-              }, 0);    /* try chaining range() and reduce() */
+              }, 0)
+              .value();    /* try chaining range() and reduce() */
     
-    console.log(sum);
-
     expect(233168).toBe(sum);
   });
 
@@ -97,15 +95,29 @@ describe("About Applying What We Have Learnt", function() {
         }
     }
 
-    expect(ingredientCount['mushrooms']).toBe(FILL_ME_IN);
+    expect(ingredientCount['mushrooms']).toBe(2);
   });
 
   it("should count the ingredient occurrence (functional)", function () {
     var ingredientCount = { "{ingredient name}": 0 };
 
     /* chain() together map(), flatten() and reduce() */
+    var ingredientCount = _(products).chain()
+                          .map(function(pizza){
+                            return pizza.ingredients;
+                          })
+                          .flatten()
+                          .reduce(function(ingredientCount, ingredient) {
+                            if (ingredient in ingredientCount) {
+                              ingredientCount[ingredient] += 1;
+                            } else {
+                              ingredientCount[ingredient] = 1;
+                            }
+                            return ingredientCount;
+                          }, ingredientCount)
+                          .value();
 
-    expect(ingredientCount['mushrooms']).toBe(FILL_ME_IN);
+    expect(ingredientCount['mushrooms']).toBe(2);
   });
 
   /*********************************************************************************/
