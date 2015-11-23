@@ -122,14 +122,66 @@ describe("About Applying What We Have Learnt", function() {
 
   /*********************************************************************************/
   /* UNCOMMENT FOR EXTRA CREDIT */
-  /*
   it("should find the largest prime factor of a composite number", function () {
+    var isfactor = function(number, i) {
+      return number % i === 0;
+    };
 
+    var isprime = function(i) {
+      for(var j = 2; j <= Math.sqrt(i); j++) {
+        if (i % j === 0) {
+          return false;
+        }
+      }
+      return true;
+    };
+    console.log(isprime(4));
+    console.log(isprime(7));
+    console.log(isfactor(4, 2));
+    console.log(isfactor(4, 3));
+
+    var findlargestprime = function(number) {
+      for (var i = number - 1; i >= 2; i--) {
+        if (isfactor(number, i) && isprime(i)) {
+          return i;
+        }
+      }
+      return 0;
+    };
+
+    expect(findlargestprime(255)).toBe(17);
   });
 
   it("should find the largest palindrome made from the product of two 3 digit numbers", function () {
 
+    var ispalin = function(number){
+      var numstr = number.toString();
+      for(var i = 0; i <= Math.floor(numstr.length/2 - 1); i++){
+        if (numstr[i] !== numstr[numstr.length - 1 - i]) {
+          return false;
+        }
+      }
+      return true;
+    };
+
+    var findlargestpalin = function() {
+      var largestp = 0;
+      for(i = 999; i > 100; i--){
+        for(j = i; j > 100; j--){
+          if(ispalin(i * j)) {
+            if (i * j > largestp){
+              largestp = i * j;
+            }
+          }
+        }
+      }
+      return largestp;
+    };
+
+    expect(findlargestpalin()).toBe(906609);
   });
+
+  /*
 
   it("should find the smallest number divisible by each of the numbers 1 to 20", function () {
 
