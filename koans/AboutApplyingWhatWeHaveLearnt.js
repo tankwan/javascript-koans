@@ -135,10 +135,6 @@ describe("About Applying What We Have Learnt", function() {
       }
       return true;
     };
-    console.log(isprime(4));
-    console.log(isprime(7));
-    console.log(isfactor(4, 2));
-    console.log(isfactor(4, 3));
 
     var findlargestprime = function(number) {
       for (var i = number - 1; i >= 2; i--) {
@@ -181,16 +177,95 @@ describe("About Applying What We Have Learnt", function() {
     expect(findlargestpalin()).toBe(906609);
   });
 
-  /*
-
   it("should find the smallest number divisible by each of the numbers 1 to 20", function () {
+        
+    var primefacts = function(num){
+      var currnum = num;
+      var list = {};
+      var currprime = 2;
+      while (currnum > 1) {
+        while (currnum % currprime === 0){
+          if (!list.hasOwnProperty(currprime)){
+            list[currprime] = 0;
+          }
+          list[currprime]++;
+          currnum = currnum / currprime;
+        }
+        currprime++;
+      }
+      return list;
+    };
+    
+    var listprimefacts = function(start, end) {
+      var arroflists = [];
+      for(var i = start; i <= end; i++){
+        arroflists.push(primefacts(i));
+      }
+      return arroflists;
+    };
 
+    var combineprimefacts = function(arroflists){
+      var combined = {};
+      var list = {};
+      for (var i = 0; i < arroflists.length; i++){
+        list = arroflists[i];
+        for (var prime in list){
+          if(!combined.hasOwnProperty(prime)){
+            combined[prime] = 0;
+          }
+          if(combined[prime] < list[prime]){
+            combined[prime] = list[prime];
+          }
+        }
+      }
+      return combined;
+    };
 
+    var mergecombined = function(combined) {
+      var total = 1;
+      for (var prime in combined) {
+        total = total * Math.pow(Number(prime), combined[prime]);
+      }
+      return total;
+    }
+
+    var merged = mergecombined(
+                  combineprimefacts(
+                    listprimefacts(1, 20)));      
+
+    // console.log(merged);
+    
+    expect(merged).toBe(232792560);
   });
 
   it("should find the difference between the sum of the squares and the square of the sums", function () {
 
+    var square = function(number) {
+      return number * number;
+    };
+
+    var sum = function() {
+      var total = 0;
+      for (var i = 0; i < arguments.length; i++) {
+        total += arguments[i];
+      }
+      return total;
+    };
+
+    var diff = function() {
+      var sumsq = 0, summ = 0;
+      for (var i = 0; i < arguments.length; i++) {
+        sumsq += Math.pow(arguments[i], 2);
+        summ += arguments[i];
+      }
+      var sqsum = Math.pow(summ, 2);
+      return Math.abs(sumsq - sqsum);
+    };
+
+    expect(diff(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)).toBe(2640);
   });
+
+  /*
 
   it("should find the 10001st prime", function () {
 
