@@ -244,14 +244,6 @@ describe("About Applying What We Have Learnt", function() {
       return number * number;
     };
 
-    var sum = function() {
-      var total = 0;
-      for (var i = 0; i < arguments.length; i++) {
-        total += arguments[i];
-      }
-      return total;
-    };
-
     var diff = function() {
       var sumsq = 0, summ = 0;
       for (var i = 0; i < arguments.length; i++) {
@@ -265,10 +257,30 @@ describe("About Applying What We Have Learnt", function() {
     expect(diff(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)).toBe(2640);
   });
 
-  /*
-
   it("should find the 10001st prime", function () {
+    
+    var findprime = function(num){
+      var currnum = 2;
+      var count = 0;
 
+      var isprime = function(i) {
+        for(var j = 2; j <= Math.sqrt(i); j++) {
+          if (i % j === 0) {
+            return false;
+          }
+        }
+        return true;
+      };
+      while (count < num){
+        if (isprime(currnum)){
+          count++;
+        }
+        currnum++;
+      }
+      currnum--;
+      return currnum;
+    };
+    expect(findprime(10001)).toBe(104743);
   });
-  */
+
 });
